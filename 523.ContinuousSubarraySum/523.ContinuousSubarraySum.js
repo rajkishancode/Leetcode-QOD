@@ -3,6 +3,7 @@
  * @param {number} k
  * @return {boolean}
  */
+
 var checkSubarraySum = function (nums, k) {
   for (let i = 0; i < nums.length; i++) {
     let sum = nums[i];
@@ -15,10 +16,38 @@ var checkSubarraySum = function (nums, k) {
   }
   return false;
 };
-var checkSubarraySum = function (nums, k) {};
+
+//efficient approach
+var checkSubarraySum = function (nums, k) {
+  const prefix_mod = new Map();
+  prefix_mod.set(0, -1); // Initialize with remainder 0 at index -1
+
+  let current_sum = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    current_sum += nums[i];
+    let remainder = current_sum % k;
+
+    // Adjust negative remainders to be in the range [0, k-1]
+    if (remainder < 0) {
+      remainder += k;
+    }
+
+    if (prefix_mod.has(remainder)) {
+      // Check if the subarray length is at least 2
+      if (i - prefix_mod.get(remainder) > 1) {
+        return true;
+      }
+    } else {
+      // Store the first occurrence of the remainder
+      prefix_mod.set(remainder, i);
+    }
+  }
+
+  return false; // No valid subarray found
+};
 
 console.log(checkSubarraySum([23, 2, 4, 6, 7], 6));
-
 console.log(checkSubarraySum([23, 2, 6, 4, 7], 6));
 console.log(checkSubarraySum([23, 2, 6, 4, 7], 13));
 

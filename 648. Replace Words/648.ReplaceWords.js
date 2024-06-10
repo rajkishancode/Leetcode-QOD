@@ -6,7 +6,6 @@
 
 var replaceWords = function (dictionary, sentence) {
   sentence = sentence.split(" ");
-  //   console.log(sentence.join(" "));
 
   //   return "hi";
   //1.loop over dic
