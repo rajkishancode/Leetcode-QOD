@@ -1,5 +1,3 @@
-const { MaxPriorityQueue } = require("@datastructures-js/priority-queue");
-
 /**
  * @param {number} k
  * @param {number} w
@@ -7,31 +5,91 @@ const { MaxPriorityQueue } = require("@datastructures-js/priority-queue");
  * @param {number[]} capital
  * @return {number}
  */
+class MaxHeap {
+  constructor() {
+    this.heap = [];
+  }
+
+  push(val) {
+    this.heap.push(val);
+    this._heapifyUp(this.heap.length - 1);
+  }
+
+  pop() {
+    if (this.heap.length === 1) {
+      return this.heap.pop();
+    }
+    const maxVal = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this._heapifyDown(0);
+    return maxVal;
+  }
+
+  isEmpty() {
+    return this.heap.length === 0;
+  }
+
+  _heapifyUp(index) {
+    while (index > 0) {
+      const parentIndex = Math.floor((index - 1) / 2);
+      if (this.heap[parentIndex] >= this.heap[index]) {
+        break;
+      }
+      [this.heap[parentIndex], this.heap[index]] = [
+        this.heap[index],
+        this.heap[parentIndex],
+      ];
+      index = parentIndex;
+    }
+  }
+
+  _heapifyDown(index) {
+    const length = this.heap.length;
+    while (true) {
+      const leftChild = 2 * index + 1;
+      const rightChild = 2 * index + 2;
+      let largest = index;
+
+      if (leftChild < length && this.heap[leftChild] > this.heap[largest]) {
+        largest = leftChild;
+      }
+      if (rightChild < length && this.heap[rightChild] > this.heap[largest]) {
+        largest = rightChild;
+      }
+      if (largest === index) {
+        break;
+      }
+      [this.heap[index], this.heap[largest]] = [
+        this.heap[largest],
+        this.heap[index],
+      ];
+      index = largest;
+    }
+  }
+}
+
 var findMaximizedCapital = function (k, w, profits, capital) {
-  // step-1  // Step 1: Create and sort the list of projects by capital required
-  const projects = [];
+  let projects = [];
   for (let i = 0; i < profits.length; i++) {
     projects.push([capital[i], profits[i]]);
   }
   projects.sort((a, b) => a[0] - b[0]);
 
-  // Step 2: Use a max-heap to track the most profitable projects we can do
-  let maxHeap = new MaxPriorityQueue({ priority: (x) => x });
+  let maxHeap = new MaxHeap();
   let i = 0;
 
   while (k > 0) {
     while (i < projects.length && projects[i][0] <= w) {
-      maxHeap.enqueue(projects[i][1]);
+      maxHeap.push(projects[i][1]);
       i++;
     }
 
-    // If there are no projects we can start, break the loop
     if (maxHeap.isEmpty()) break;
 
-    //Choose the most profitable project
-    w += maxHeap.dequeue().element;
+    w += maxHeap.pop();
     k--;
   }
+
   return w;
 };
 

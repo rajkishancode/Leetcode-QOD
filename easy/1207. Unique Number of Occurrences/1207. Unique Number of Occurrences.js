@@ -2,17 +2,30 @@
  * @param {number[]} arr
  * @return {boolean}
  */
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
 var uniqueOccurrences = function (arr) {
-  const occuranceMap = new Map();
+  const frequencyMap = new Map();
+
   arr.forEach((num) => {
-    if (occuranceMap.has(num)) {
-      occuranceMap.set(num, occuranceMap.get(num) + 1);
+    if (frequencyMap.has(num)) {
+      frequencyMap.set(num, frequencyMap.get(num) + 1);
     } else {
-      occuranceMap.set(num, 1);
+      frequencyMap.set(num, 0);
     }
   });
 
-  return occuranceMap.values();
+  const occuranceSet = new Set();
+  for (let count of frequencyMap.values()) {
+    if (occuranceSet.has(count)) {
+      return false;
+    }
+
+    occuranceSet.add(count);
+  }
+  return true;
 };
 
 let arr = [1, 2, 2, 1, 1, 3];

@@ -24,18 +24,7 @@ var minIncrementForUnique = function (nums) {
   return moves;
 };
 
-var minIncrementForUnique1 = function (nums) {
-  nums.sort((a, b) => a - b);
-  let moves = 0;
-  for (let i = 1; i < nums.length; i++) {
-    if (num[i] <= num[i - 1]) {
-      let increment = nums[i - 1] - num[i] + 1;
-      num[i] += increment;
-      count += increment;
-    }
-  }
-  return moves;
-};
+console.log(minIncrementForUnique([1, 2, 2]));
 
 // Example 1:
 
