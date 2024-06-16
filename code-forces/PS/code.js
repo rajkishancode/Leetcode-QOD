@@ -27,11 +27,17 @@ function readline() {
 
 function main() {
   // Example logic
-  const n = readline();
-  if (n % 2 === 0 && n > 2) {
-    console.log("YES");
-  } else {
-    console.log("YES");
+  const inputArray = readline().split(" ");
+
+  let yearCount = 0;
+  let limakWeight = +inputArray[0];
+  let BobWeight = +inputArray[1];
+
+  while (limakWeight <= BobWeight) {
+    limakWeight = limakWeight * 3;
+    BobWeight = BobWeight * 2;
+    yearCount++;
   }
-  console.log(n);
+
+  console.log(yearCount);
 }

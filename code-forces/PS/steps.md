@@ -50,5 +50,5 @@ function main() {
 /// 1. write the code in where write your logic is there
 /// 2. paste the input in input.txt
 /// 3. Now go to terminal where code.js and input.txt file is located through terminal
-/// 4. type input.txt | node.exe code.js > output.txt> 
+/// 4. type input.txt | node.exe code.js > output.txt
 /// 5. check output.txt 
