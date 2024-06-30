@@ -27,17 +27,11 @@ function readline() {
 
 function main() {
   // Example logic
-  const inputArray = readline().split(" ");
-
-  let yearCount = 0;
-  let limakWeight = +inputArray[0];
-  let BobWeight = +inputArray[1];
-
-  while (limakWeight <= BobWeight) {
-    limakWeight = limakWeight * 3;
-    BobWeight = BobWeight * 2;
-    yearCount++;
+  let input = Number(readline());
+  let result = 0;
+  if (input % 2 === 0) {
+    print(input / 2);
+  } else {
+    print(-((input + 1) / 2));
   }
-
-  console.log(yearCount);
 }
